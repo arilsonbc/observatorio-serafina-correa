@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import{matches}from '../public/data.mjs';import{resolveWinners}from '../public/result-parser.mjs';
+test('CNPJ pode ser buscado com pontuação',()=>assert.ok(matches({data:'2026-09-01',entidade_id:'12345678000190'},'2026','09','12.345.678/0001-90')));
+test('filiais ambíguas não impedem o vínculo de outro vencedor confirmado',()=>{const p=new Map([['EMPRESA A',new Set(['11111111000111','11111111000200'])],['EMPRESA B',new Set(['22222222000122'])]]),r=resolveWinners('EMPRESA A, EMPRESA B',p);assert.equal(r[0].id,null);assert.equal(r[1].id,'22222222000122')});
