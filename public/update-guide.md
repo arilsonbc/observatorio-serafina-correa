@@ -1,9 +1,10 @@
 # Atualização do Observatório Serafina
 
-O Site deve permanecer privado e exclusivo do proprietário: o endpoint de escrita depende da autenticação oferecida pelo Sites.
+O Site oferece leitura pública. A escrita exige o segredo COLLECTOR_WRITE_TOKEN, configurado somente no ambiente do servidor.
 
 1. Obter `get_site` para o Site vinculado e seu token de acesso de serviço. Não imprimir, gravar, incluir em argumentos nem transmitir o token a outros hosts. Usá-lo somente para esse Site no cabeçalho `OAI-Sites-Authorization: Bearer <token>`.
-2. Baixar do próprio Site `/collector.mjs`, `/municipal.mjs`, `/result-collector.mjs`, `/result-parser.mjs` e `/municipal-ca.pem` para uma pasta temporária, com acesso de serviço. Confirmar HTTP 200. Esses arquivos fazem parte do código publicado.
+2. Antes de coletar, configurar COLLECTOR_WRITE_TOKEN como segredo no ambiente Sites com o valor do token de serviço obtido no passo 1. Nunca imprimir esse valor. Aplicar a configuração republicando a última versão salva, sem mudar o acesso público. O coletor envia o mesmo valor no cabeçalho X-Collector-Key. O segredo não fica no código nem no navegador. Se houver falha ao aplicar a configuração, interromper sem gravar dados.
+3. Baixar do próprio Site `/collector.mjs`, `/municipal.mjs`, `/result-collector.mjs`, `/result-parser.mjs` e `/municipal-ca.pem` para uma pasta temporária, com acesso de serviço. Confirmar HTTP 200. Esses arquivos fazem parte do código publicado.
 3. Executar `node collector.mjs` com Node 22+ e curl. Após a mensagem de entrada oculta, fornecer via stdin um JSON com `site`, `token` e `years`: ano corrente e anterior. Aos domingos, incluir todos os anos de 2017 até o corrente para revisar o histórico. A primeira coleta histórica já foi realizada. Não republicar para atualizar dados.
 4. O coletor verifica a assinatura e validade do intermediário municipal contra uma raiz já confiável e mantém a validação HTTPS e de hostname. Nunca usar `-k`, `--insecure` ou desativar a verificação TLS. Se a cadeia mudar, informar a falha e revisar o certificado com a autoridade emissora.
 5. São coletadas folhas mensais (todas as referências retornadas), pagamentos por CNPJ, contratos e licitações. Resultados detalhados dos processos homologados são obtidos pelos mesmos callbacks públicos usados pelo portal, incluindo todas as páginas de participantes e resultados. Não executar scripts recebidos da prefeitura. A leitura é feita por parser de estrutura e validação de contagens.
@@ -13,3 +14,4 @@ O Site deve permanecer privado e exclusivo do proprietário: o endpoint de escri
 9. Ler de volta `/api/painel?year=ANO` e `/api/dados?kind=results&year=ANO&month=1` com o mesmo acesso de serviço e verificar data de coleta/contagens. Não imprimir nomes, remunerações ou credenciais no relatório. Notificar apenas falhas, mudanças relevantes ou ação necessária; manter silêncio quando não houver novidade relevante.
 
 Fontes oficiais: https://sistemas.serafinacorrea.rs.gov.br/transparencia/versaoJson/DadosAbertos/ e https://sistemas.serafinacorrea.rs.gov.br/transparencia/InformacoesLicitacoes.aspx. As consultas de 2014–2016 retornaram HTTP 500 nos testes; isso não comprova ausência de registros nesses exercícios.
+

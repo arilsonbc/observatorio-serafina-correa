@@ -39,6 +39,7 @@ Contratos usam a assinatura e excluem anulações. Folha usa competência, matr�
 
 Leia [as instruções do coletor](public/update-guide.md). O coletor valida TLS normalmente, complementando a cadeia municipal com um intermediário cuja assinatura é verificada contra uma raiz confiável. Credenciais entram somente por stdin. Não persistimos CPF nem dados bancários.
 
-O endpoint `/api/snapshot` depende da autenticação e do acesso exclusivo do proprietário fornecidos pelo Sites. Mantenha a aplicação hospedada privada. Se implantar fora do Sites, implemente autenticação antes de expor o endpoint. A publicidade do repositório não altera o acesso da aplicação.
+O painel permite leitura pública. O endpoint `/api/snapshot` exige o segredo de servidor `COLLECTOR_WRITE_TOKEN` no cabeçalho `X-Collector-Key`. Consulte o guia de atualização para configurar a coleta autenticada.
 
 Testes cobrem contagem de processos, valores conjuntos sem rateio, salários ausentes, estornos, precisão monetária, busca, CSV e leitura dos layouts de resultados. Não há credenciais ou bases coletadas neste repositório.
+
