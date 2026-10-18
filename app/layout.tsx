@@ -1,0 +1,1 @@
+export const metadata={title:"Observatório Serafina",description:"Licitações, pagamentos e remunerações municipais com dados oficiais."}; export default function Layout({children}:{children:React.ReactNode}){return <html lang="pt-BR"><body>{children}</body></html>}
