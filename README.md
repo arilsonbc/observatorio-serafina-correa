@@ -49,3 +49,11 @@ Clique no nome de uma empresa ou servidor para abrir uma página individual. Os 
 
 O botão Comparar períodos compara um mês com o anterior, incluindo dezembro na virada de ano. Com Todos os meses, compara a janela janeiro–mês corrente com a mesma janela do ano anterior; anos passados usam doze meses. Pagamentos e remuneração líquida são calculados separadamente, em valores nominais. Percentuais são omitidos quando faltam conjuntos ou valores; base anterior zero permite somente diferença absoluta. Um mês em andamento pode ter menos lançamentos que o anterior.
 
+## Contratos, novidades e concentração
+
+Vigências e vencimento atualizado vêm da API municipal. ADITADO é o valor agregado, não a lista dos termos aditivos. Consulte os documentos no portal. O filtro dos contratos usa a assinatura; escolha Todos os anos para contratos antigos.
+
+Novidades mostram publicações e adjudicações dos últimos 30 dias e contratos com prazo em até 30 dias nos dados carregados. A marca de leitura fica neste navegador. Não há envio de email ou notificações externas.
+
+A busca por objeto vincula processos, contratos e resultados por processo; não atribui pagamentos mensais a objetos sem vínculo na fonte. Concentração agrupa por CNPJ e divide os pagamentos dos maiores 1, 5 e 10 pelo total líquido dos filtros. Bases não positivas e saldos negativos bloqueiam o índice. Inclui repasses e obrigações; não indica irregularidade.
+
