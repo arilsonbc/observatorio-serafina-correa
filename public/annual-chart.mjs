@@ -1,0 +1,3 @@
+import {sum,finite} from './data.mjs';
+export function matchedAnnualTotals(rows,coverage,kind,lastClosedMonth){const type=kind==='salary'?'salario':'pagamento',key=kind==='salary'?'bruto':'valor';const months=[];for(let m=1;m<=lastClosedMonth;m++)if([2025,2026].every(year=>coverage.some(c=>c.kind===kind&&c.year===year&&c.month===m&&c.status==='available'&&c.count>0)))months.push(m);const totals=[2025,2026].map(year=>{const selected=rows.filter(r=>r.tipo===type&&r.data.startsWith(String(year))&&months.includes(Number(r.data.slice(5,7))));return {year,value:sum(selected,key),missing:selected.filter(r=>!finite(r[key])).length}});return {months,totals,excluded:lastClosedMonth-months.length}}
+
