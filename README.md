@@ -43,3 +43,9 @@ O painel permite leitura pública. O endpoint `/api/snapshot` exige o segredo de
 
 Testes cobrem contagem de processos, valores conjuntos sem rateio, salários ausentes, estornos, precisão monetária, busca, CSV e leitura dos layouts de resultados. Não há credenciais ou bases coletadas neste repositório.
 
+## Perfis e comparação
+
+Clique no nome de uma empresa ou servidor para abrir uma página individual. Os links usam `/painel?perfil=empresa&id=CNPJ` ou `/painel?perfil=servidor&id=MATRICULA`. A página carrega o histórico disponível desde 2017, permite filtrar os registros e copiar o endereço permanente. A exportação em um perfil contém somente os registros daquela identidade.
+
+O botão Comparar períodos compara um mês com o anterior, incluindo dezembro na virada de ano. Com Todos os meses, compara a janela janeiro–mês corrente com a mesma janela do ano anterior; anos passados usam doze meses. Pagamentos e remuneração líquida são calculados separadamente, em valores nominais. Percentuais são omitidos quando faltam conjuntos ou valores; base anterior zero permite somente diferença absoluta. Um mês em andamento pode ter menos lançamentos que o anterior.
+
