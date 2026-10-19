@@ -6,3 +6,5 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 @media(max-width:560px){td button,.rank-row button,.menu-toggle{min-height:44px}}
+.profile-bars>div{display:grid;grid-template-columns:50px 1fr 170px;gap:12px;align-items:center;margin:16px 0}.profile-bars meter{width:100%;height:24px;accent-color:#1b6855}.profile-bars strong{text-align:right}.comparison-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.comparison-values p{padding:16px;background:#f3f7f1;border-radius:12px}.comparison-values strong,.comparison-values small{display:block;margin-top:8px}.comparison-values strong{font-size:20px;overflow-wrap:anywhere}#individual .sync-actions{margin:20px 0}#individual h2{overflow-wrap:anywhere}#periodComparison{margin-bottom:24px}@media(max-width:600px){.comparison-values{grid-template-columns:1fr}.profile-bars>div{grid-template-columns:40px 1fr}.profile-bars strong{grid-column:2;font-size:14px}#individual .sync-actions{display:grid}}
+
