@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {payrollMatches,entryCategory,sortPayroll} from '../public/payroll.mjs';
+test('combina cargo, secretaria e ingresso sem presumir concurso',()=>{const row={cargo:'Motorista',secretaria:'Obras',forma_provimento:'CONCURSO PUBLICO'};assert.ok(payrollMatches(row,{role:'Motorista',department:'Obras',entry:'concurso'}));assert.equal(payrollMatches(row,{department:'Saúde'}),false);assert.equal(entryCategory({vinculo:'RPPS'}),'unknown')});
+test('não informado não entra no filtro não concursado',()=>{assert.equal(payrollMatches({},{entry:'nao'}),false);assert.ok(payrollMatches({forma_provimento:'TEMPO DETERMINADO'},{entry:'nao'}))});
+test('ordenação numérica não usa texto e mantém ausentes no fim',()=>{const rows=[{id:'a',name:'A',gross:9},{id:'b',name:'B',gross:100},{id:'c',name:'C',gross:null}];assert.deepEqual(sortPayroll(rows,'gross','desc').map(r=>r.id),['b','a','c']);assert.deepEqual(sortPayroll(rows,'gross','asc').map(r=>r.id),['a','b','c'])});
+test('ordena nomes e não altera lista original',()=>{const rows=[{id:'b',name:'Zélia'},{id:'a',name:'Ana'}];assert.equal(sortPayroll(rows,'name','asc')[0].name,'Ana');assert.equal(rows[0].name,'Zélia')});
+
