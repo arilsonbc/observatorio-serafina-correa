@@ -57,3 +57,7 @@ Novidades mostram publicações e adjudicações dos últimos 30 dias e contrato
 
 A busca por objeto vincula processos, contratos e resultados por processo; não atribui pagamentos mensais a objetos sem vínculo na fonte. Concentração agrupa por CNPJ e divide os pagamentos dos maiores 1, 5 e 10 pelo total líquido dos filtros. Bases não positivas e saldos negativos bloqueiam o índice. Inclui repasses e obrigações; não indica irregularidade.
 
+## Filtros da remuneração
+
+Cargo, secretaria/divisão e forma de ingresso filtram cada registro da competência selecionada. Mudanças de cargo ou lotação podem dividir o acumulado de uma matrícula. Formas desconhecidas não são classificadas como não concursadas. Colunas Nome, Bruto, Descontos e Líquido aceitam ordenação crescente e decrescente; valores ausentes ficam ao final nas duas direções. Há controles equivalentes para telas pequenas. A exportação e os indicadores usam os mesmos filtros; o ranking de destaque mantém sua métrica identificada de líquido.
+
