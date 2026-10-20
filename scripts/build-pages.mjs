@@ -15,7 +15,7 @@ export function pagesAsset(source,name){
     if(result.includes('/api'))throw Error('Unconverted API route in Pages artifact');
   }
   if(name==='painel.html'){
-    result=result.replaceAll('href="/style.css"','href="./style.css"').replaceAll('href="/municipio.css"','href="./municipio.css"').replaceAll('src="/app.js"','src="./app.js"');
+    result=result.replaceAll('href="/style.css"','href="./style.css"').replaceAll('href="/municipio.css','href="./municipio.css').replaceAll('src="/app.js','src="./app.js');
     result=result.replace('A coleta diária está agendada para 7h (Brasília) no Sites.', 'Esta cópia no GitHub Pages é atualizada diariamente após as 7h30 (Brasília), a partir da coleta pública do Observatório. O horário pode variar conforme a execução do GitHub Actions. A coleta na prefeitura está agendada para 7h.');
   }
   return result;
