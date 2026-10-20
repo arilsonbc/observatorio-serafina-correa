@@ -55,3 +55,5 @@ next-env.d.ts
 /outputs/
 /work/
 *.tar.gz
+/pages-output/
+

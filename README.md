@@ -2,6 +2,14 @@
 
 Painel cidadão de licitações, resultados homologados, contratos, pagamentos e remuneração da Prefeitura de Serafina Corrêa/RS.
 
+## Site no GitHub Pages
+
+Acesso público: https://arilsonbc.github.io/observatorio-serafina-correa/
+
+O fluxo `.github/workflows/pages.yml` publica a interface e cópias dos dados públicos de 2017 em diante, sem servidor nem credenciais no navegador. Executa a cada alteração em `main`, manualmente pelo Actions e diariamente às 10h30 UTC (7h30 de Brasília; o GitHub pode atrasar a execução). A origem continua sendo a coleta municipal mantida no Observatório; o Pages não executa o coletor diretamente. A data da coleta e sua cobertura aparecem no painel. Se a cópia falhar, a publicação anterior permanece disponível.
+
+Para gerar a versão estática: `node scripts/build-pages.mjs`. O resultado fica em `pages-output/`, fora do Git. Os perfis usam `index.html?perfil=...&id=...`, permitindo abrir e compartilhar links diretamente no subdiretório do projeto. O workflow publica apenas os arquivos necessários à interface e os dados públicos, sem os arquivos operacionais do coletor.
+
 ## Funcionalidades
 
 - Interface responsiva, menu compacto e cartões no celular.
