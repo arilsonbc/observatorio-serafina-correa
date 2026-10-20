@@ -3,7 +3,7 @@ import {resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 
 export const PUBLIC_SOURCE='https://observatorio-serafina-correa.wise-sun-9588.chatgpt.site';
-const assets=['style.css','municipio.css','app.js','profile.mjs','payroll.mjs','annual-chart.mjs','comparison.mjs','insights.mjs','data.mjs'];
+const assets=['style.css','municipio.css','app.js','profile.mjs','payroll.mjs','annual-chart.mjs','comparison.mjs','insights.mjs','data.mjs','autocomplete.mjs'];
 
 // Transform only the Pages artifact; the Worker deployment keeps its own routes.
 export function pagesAsset(source,name){
