@@ -1,4 +1,4 @@
-import {attachEmployeeSuggestions} from './autocomplete.mjs';
+import {attachEmployeeSuggestions,suggestEmployees,suggestSuppliers} from './autocomplete.mjs?v=20261020-suppliers';
 import {sortPayroll} from './payroll.mjs';
 import {matchedAnnualTotals} from './annual-chart.mjs';
 import {linkedSearch,concentration,contractState} from './insights.mjs';
@@ -70,5 +70,5 @@ $('topSources').onclick=()=>setView('sources');
 $('exploreEmployees').onclick=()=>{setView('payroll');$('title').scrollIntoView({block:'start'});};
 $('exploreCompanies').onclick=()=>{setView('bids');$('title').scrollIntoView({block:'start'});};
 
-const employeeSuggestions=attachEmployeeSuggestions($('search'),{isActive:()=>state.view==='payroll'&&!profile,getRows:()=>state.rows.filter(r=>r.tipo==='salario'&&matches(r,$('year').value,$('month').value,'')),onChoose:item=>{clearTimeout(timer);detailPerson(item.id,true);}});
+const employeeSuggestions=attachEmployeeSuggestions($('search'),{isActive:()=>['payroll','bids','contracts','history'].includes(state.view)&&!profile,getRows:()=>state.rows.filter(r=>matches(r,$('year').value,$('month').value,'')),getSuggestions:(rows,query)=>state.view==='payroll'?suggestEmployees(rows,query):suggestSuppliers(rows,query),getLabel:()=>state.view==='payroll'?'Sugestões de servidores':'Sugestões de empresas e fornecedores',onChoose:item=>{clearTimeout(timer);detailPerson(item.id,state.view==='payroll');}});
 

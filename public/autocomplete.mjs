@@ -15,7 +15,21 @@ export function suggestEmployees(rows,query,limit=8){
   return [...people.values()].sort((a,b)=>priority(a)-priority(b)||a.nome.localeCompare(b.nome,'pt-BR')||a.entidade_id.localeCompare(b.entidade_id)).slice(0,limit).map(r=>({id:r.entidade_id,name:r.nome,role:r.cargo?.trim()||'Cargo não informado pela prefeitura'}));
 }
 
-export function attachEmployeeSuggestions(input,{getRows,isActive,onChoose}){
+export function suggestSuppliers(rows,query,limit=8){
+  const q=normalizeSearch(query).trim(),tokens=q.split(/\s+/),digits=q.replace(/\D/g,'');
+  if(!q)return [];
+  const suppliers=new Map();
+  for(const r of rows){
+    const cnpj=String(r.entidade_id||'').replace(/\D/g,'');
+    if(!['pagamento','contrato','licitacao','adjudicacao'].includes(r.tipo)||cnpj.length!==14||!r.nome)continue;
+    if(!tokens.every(t=>normalizeSearch(r.nome).includes(t))&&!(/^[\d.\/\-\s]+$/.test(q)&&digits&&cnpj.includes(digits)))continue;
+    const old=suppliers.get(cnpj);
+    if(!old||String(r.data)>String(old.data))suppliers.set(cnpj,r);
+  }
+  return [...suppliers.entries()].sort(([,a],[,b])=>Number(!normalizeSearch(a.nome).startsWith(q))-Number(!normalizeSearch(b.nome).startsWith(q))||a.nome.localeCompare(b.nome,'pt-BR')||a.entidade_id.localeCompare(b.entidade_id)).slice(0,limit).map(([cnpj,r])=>({id:r.entidade_id,name:r.nome,role:'CNPJ '+cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,'$1.$2.$3/$4-$5')}));
+}
+
+export function attachEmployeeSuggestions(input,{getRows,isActive,onChoose,getSuggestions=suggestEmployees,getLabel=()=> 'Sugestões de servidores'}){
   const label=input.closest('label'),wrapper=document.createElement('div');
   wrapper.className='search-field';label.before(wrapper);wrapper.append(label);
   const list=document.createElement('div');list.id='employeeSuggestions';list.className='employee-suggestions';list.setAttribute('role','listbox');list.setAttribute('aria-label','Sugestões de servidores');list.hidden=true;wrapper.append(list);
@@ -27,7 +41,8 @@ export function attachEmployeeSuggestions(input,{getRows,isActive,onChoose}){
   function choose(i){const item=items[i];if(!item)return;input.value=item.name;dismissed=true;close();onChoose(item);input.focus();}
   function refresh(){
     if(!isActive()||document.activeElement!==input||dismissed){close();return;}
-    const next=suggestEmployees(getRows(),input.value);
+    list.setAttribute('aria-label',getLabel());
+    const next=getSuggestions(getRows(),input.value);
     if(!list.hidden&&JSON.stringify(next)===JSON.stringify(items))return;
     items=next;active=-1;list.replaceChildren();
     if(!items.length){close();if(input.value.trim())status.textContent='Nenhum nome correspondente nos filtros atuais.';return;}
