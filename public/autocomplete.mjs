@@ -32,7 +32,7 @@ export function suggestSuppliers(rows,query,limit=8){
 export function attachEmployeeSuggestions(input,{getRows,isActive,onChoose,getSuggestions=suggestEmployees,getLabel=()=> 'Sugestões de servidores'}){
   const label=input.closest('label'),wrapper=document.createElement('div');
   wrapper.className='search-field';label.before(wrapper);wrapper.append(label);
-  const list=document.createElement('div');list.id='employeeSuggestions';list.className='employee-suggestions';list.setAttribute('role','listbox');list.setAttribute('aria-label','Sugestões de servidores');list.hidden=true;wrapper.append(list);
+  const list=document.createElement('div');list.id=input.id+'Suggestions';list.className='employee-suggestions';list.setAttribute('role','listbox');list.setAttribute('aria-label','Sugestões de servidores');list.hidden=true;wrapper.append(list);
   const status=document.createElement('span');status.className='sr-only';status.setAttribute('role','status');wrapper.append(status);
   input.setAttribute('role','combobox');input.setAttribute('aria-autocomplete','list');input.setAttribute('aria-controls',list.id);input.setAttribute('aria-expanded','false');
   let items=[],active=-1,dismissed=false;
@@ -46,7 +46,7 @@ export function attachEmployeeSuggestions(input,{getRows,isActive,onChoose,getSu
     if(!list.hidden&&JSON.stringify(next)===JSON.stringify(items))return;
     items=next;active=-1;list.replaceChildren();
     if(!items.length){close();if(input.value.trim())status.textContent='Nenhum nome correspondente nos filtros atuais.';return;}
-    items.forEach((item,i)=>{const option=document.createElement('div');option.id='employeeSuggestion-'+i;option.setAttribute('role','option');option.setAttribute('aria-selected','false');const name=document.createElement('strong'),role=document.createElement('small');name.textContent=item.name;role.textContent=item.role;option.append(name,role);option.addEventListener('pointerdown',e=>e.preventDefault());option.addEventListener('click',()=>choose(i));list.append(option);});
+    items.forEach((item,i)=>{const option=document.createElement('div');option.id=list.id+'-'+i;option.setAttribute('role','option');option.setAttribute('aria-selected','false');const name=document.createElement('strong'),role=document.createElement('small');name.textContent=item.name;role.textContent=item.role;option.append(name,role);option.addEventListener('pointerdown',e=>e.preventDefault());option.addEventListener('click',()=>choose(i));list.append(option);});
     list.hidden=false;input.setAttribute('aria-expanded','true');input.removeAttribute('aria-activedescendant');status.textContent=items.length+' sugestões. Use as setas para navegar e Enter para selecionar.';
   }
   input.addEventListener('input',()=>{dismissed=false;refresh();});input.addEventListener('focus',()=>{dismissed=false;refresh();});input.addEventListener('blur',close);
